@@ -21,24 +21,27 @@ public class QuestionDaoImpl implements QuestionDao {
     }
 
     private List<Question> getQuestionsAsResources() {
+        InputStream fileInputStream = getInputStreamFromFile();
+        return getQuestionsFromInputStream(fileInputStream);
+    }
+
+    private InputStream getInputStreamFromFile() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        return classLoader.getResourceAsStream(fileName);
+    }
+
+    private List<Question> getQuestionsFromInputStream(InputStream fileInputStream) {
         List<Question> questions = new ArrayList<>();
-        InputStream inputStream = getInputStreamFromFile();
-        try (InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+        try (InputStreamReader streamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
              BufferedReader reader = new BufferedReader(streamReader)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 Question question = new Question(line);
                 questions.add(question);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
         return questions;
-    }
-
-    private InputStream getInputStreamFromFile() {
-        ClassLoader classLoader = getClass().getClassLoader();
-        return classLoader.getResourceAsStream(fileName);
     }
 }
