@@ -4,4 +4,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="questionDao" class="ru.otus.questionnaire.dao.QuestionDaoImpl"/>
+    <bean id="questionPrinter" class="ru.otus.questionnaire.service.QuestionPrinterImpl"/>
+
+    <bean id="questionService" class="ru.otus.questionnaire.service.QuestionServiceImpl">
+        <constructor-arg index="0" ref="questionDao"/>
+        <constructor-arg index="1" ref="questionPrinter"/>
+    </bean>
+
 </beans>

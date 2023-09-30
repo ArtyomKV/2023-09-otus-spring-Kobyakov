@@ -1,14 +1,15 @@
 package ru.otus.questionnaire.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import ru.otus.questionnaire.domain.Question;
+
+import java.util.List;
 
 @RequiredArgsConstructor
-@Slf4j
 public class QuestionPrinterImpl implements QuestionPrinter {
 
     @Override
-    public void printQuestions() {
-
+    public void printQuestions(List<Question> questions) {
+        questions.forEach(question -> System.out.println(question.getQuestion()));
     }
 }
