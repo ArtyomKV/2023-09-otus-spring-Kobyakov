@@ -1,21 +1,44 @@
 package ru.otus.questionnaire.dao;
 
+import lombok.RequiredArgsConstructor;
 import ru.otus.questionnaire.domain.Question;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class QuestionDaoImpl implements QuestionDao {
-
-    private static final String FILE_NAME = "questions.csv";
+    private final String fileName;
 
     @Override
     public List<Question> findAll() {
-        //todo: реализовать логику вычитки файла как ресурса
+        return getQuestionsAsResources();
+    }
+
+    private List<Question> getQuestionsAsResources() {
         List<Question> questions = new ArrayList<>();
-        questions.add(new Question("Question 1"));
-        questions.add(new Question("Question 2"));
-        questions.add(new Question("Question 3"));
+        InputStream inputStream = getInputStreamFromFile();
+        try (InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+             BufferedReader reader = new BufferedReader(streamReader)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Question question = new Question(line);
+                questions.add(question);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return questions;
+    }
+
+    private InputStream getInputStreamFromFile() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        return classLoader.getResourceAsStream(fileName);
     }
 }

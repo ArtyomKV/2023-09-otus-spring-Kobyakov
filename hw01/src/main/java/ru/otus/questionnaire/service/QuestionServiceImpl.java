@@ -8,17 +8,17 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
-
     private final QuestionDao questionDao;
+
     private final QuestionPrinter printer;
 
     @Override
-    public List<Question> getAllQuestions() {
-        return questionDao.findAll();
+    public void printAllQuestions() {
+        List<Question> questions = getAllQuestions();
+        printer.printQuestions(questions);
     }
 
-    @Override
-    public void printAllQuestions(List<Question> questions) {
-        printer.printQuestions(questions);
+    private List<Question> getAllQuestions() {
+        return questionDao.findAll();
     }
 }
