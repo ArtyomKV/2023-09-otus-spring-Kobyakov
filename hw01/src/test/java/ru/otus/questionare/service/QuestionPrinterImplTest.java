@@ -16,7 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class QuestionPrinterImplTest {
 
     public static final String FIRST_QUESTION = "first question";
+    public static final String FIRST_NUMBER_OF_QUESTION = "1: ";
     public static final String SECOND_QUESTION = "second question";
+    public static final String SECOND_NUMBER_OF_QUESTION = "2: ";
     public static final String NEXT_LINE_SYMBOL = "\n";
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -26,8 +28,8 @@ class QuestionPrinterImplTest {
     @BeforeEach
     void setUp() {
         System.setOut(new PrintStream(outContent));
-        Question firstQuestion = new Question(FIRST_QUESTION);
-        Question secondQuestion = new Question(SECOND_QUESTION);
+        Question firstQuestion = new Question(FIRST_QUESTION, new ArrayList<>());
+        Question secondQuestion = new Question(SECOND_QUESTION, new ArrayList<>());
         questions.add(firstQuestion);
         questions.add(secondQuestion);
     }
@@ -37,10 +39,11 @@ class QuestionPrinterImplTest {
         System.setOut(originalOut);
     }
 
-    @DisplayName("should print questions correctly")
+    @DisplayName("should print questions without answer options correctly")
     @Test
-    void shouldPrintQuestionsCorrectly() {
-        String expectedResult = FIRST_QUESTION + NEXT_LINE_SYMBOL + SECOND_QUESTION + NEXT_LINE_SYMBOL;
+    void shouldPrintQuestionsWithoutAnswerOptionsCorrectly() {
+        String expectedResult = FIRST_NUMBER_OF_QUESTION + FIRST_QUESTION + NEXT_LINE_SYMBOL +
+                SECOND_NUMBER_OF_QUESTION + SECOND_QUESTION + NEXT_LINE_SYMBOL;
         questionPrinter.printQuestions(questions);
         assertEquals(expectedResult, outContent.toString());
     }
