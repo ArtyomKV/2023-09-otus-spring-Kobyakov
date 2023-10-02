@@ -14,11 +14,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public void printAllQuestions() {
-        List<Question> questions = getAllQuestions();
+        List<Question> questions = questionDao.findAll();
         printer.printQuestions(questions);
-    }
-
-    private List<Question> getAllQuestions() {
-        return questionDao.findAll();
     }
 }
