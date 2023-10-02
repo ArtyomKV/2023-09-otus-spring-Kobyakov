@@ -2,6 +2,7 @@ package ru.otus.questionare.service;
 
 import org.junit.jupiter.api.*;
 import ru.otus.questionnaire.domain.Question;
+import ru.otus.questionnaire.service.ConsoleIOServiceImpl;
 import ru.otus.questionnaire.service.QuestionPrinterImpl;
 
 import java.io.ByteArrayOutputStream;
@@ -19,7 +20,7 @@ class QuestionPrinterImplTest {
     public static final String NEXT_LINE_SYMBOL = "\n";
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    private final QuestionPrinterImpl questionPrinter = new QuestionPrinterImpl();
+    private final QuestionPrinterImpl questionPrinter = new QuestionPrinterImpl(new ConsoleIOServiceImpl());
     private final List<Question> questions = new ArrayList<>();
 
     @BeforeEach

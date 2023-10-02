@@ -4,10 +4,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="ioService" class="ru.otus.questionnaire.service.ConsoleIOServiceImpl"/>
     <bean id="questionDao" class="ru.otus.questionnaire.dao.QuestionDaoImpl">
         <constructor-arg index="0" value="questions.csv"/>
     </bean>
-    <bean id="questionPrinter" class="ru.otus.questionnaire.service.QuestionPrinterImpl"/>
+    <bean id="questionPrinter" class="ru.otus.questionnaire.service.QuestionPrinterImpl">
+        <constructor-arg index="0" ref="ioService"/>
+    </bean>
 
     <bean id="questionService" class="ru.otus.questionnaire.service.QuestionServiceImpl">
         <constructor-arg index="0" ref="questionDao"/>
