@@ -2,6 +2,7 @@ package ru.otus.questionnaire.dao;
 
 import lombok.RequiredArgsConstructor;
 import ru.otus.questionnaire.domain.Question;
+import ru.otus.questionnaire.exception.QuestionsAccessException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,18 +22,14 @@ public class QuestionDaoImpl implements QuestionDao {
     }
 
     private List<Question> getQuestionsAsResources() {
-        InputStream fileInputStream = getInputStreamFromFile();
-        return getQuestionsFromInputStream(fileInputStream);
-    }
-
-    private InputStream getInputStreamFromFile() {
         ClassLoader classLoader = getClass().getClassLoader();
-        return classLoader.getResourceAsStream(fileName);
+        InputStream questionsInputStream = classLoader.getResourceAsStream(fileName);
+        return getQuestionsFromInputStream(questionsInputStream);
     }
 
-    private List<Question> getQuestionsFromInputStream(InputStream fileInputStream) {
+    private List<Question> getQuestionsFromInputStream(InputStream questionsInputStream) {
         List<Question> questions = new ArrayList<>();
-        try (InputStreamReader streamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
+        try (InputStreamReader streamReader = new InputStreamReader(questionsInputStream, StandardCharsets.UTF_8);
              BufferedReader reader = new BufferedReader(streamReader)) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -41,6 +38,7 @@ public class QuestionDaoImpl implements QuestionDao {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            throw new QuestionsAccessException(e.getMessage());
         }
         return questions;
     }
