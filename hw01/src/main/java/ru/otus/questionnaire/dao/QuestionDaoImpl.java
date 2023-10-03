@@ -49,8 +49,7 @@ public class QuestionDaoImpl implements QuestionDao {
             }
             questions = getQuestions(questionAnswers);
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new QuestionsAccessException(e.getMessage());
+            throw new QuestionsAccessException("Can not to get Questions!", e);
         }
         return questions;
     }
