@@ -1,0 +1,18 @@
+How many bits contains type long?,8,false
+How many bits contains type long?,16,false
+How many bits contains type long?,32,false
+How many bits contains type long?,64,true
+Who works with byte code?,Abstract class,false
+Who works with byte code?,Interface,false
+Who works with byte code?,JVM,true
+Methods of Object class? Chose the wrong answer!,finalize(),false
+Methods of Object class? Chose the wrong answer!,clone(),false
+Methods of Object class? Chose the wrong answer!,equals(),false
+Methods of Object class? Chose the wrong answer!,hashCode(),false
+Methods of Object class? Chose the wrong answer!,run(),true
+OOP concepts? Chose wrong answer!,Polymorphism,false
+OOP concepts? Chose wrong answer!,Aggregation,true
+OOP concepts? Chose wrong answer!,Inheritance,false
+What is Collection?,Abstract class,false
+What is Collection?,Interface,true
+What is Collection?,Framework,false
