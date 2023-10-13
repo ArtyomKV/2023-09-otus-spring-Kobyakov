@@ -6,4 +6,6 @@ import lombok.Data;
 public class Answer {
 
     private String answer;
+
+    private boolean isCorrect;
 }
