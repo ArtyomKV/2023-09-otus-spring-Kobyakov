@@ -1,11 +1,13 @@
 package ru.otus.questionnaire.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import ru.otus.questionnaire.domain.Question;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
+@Service
 @RequiredArgsConstructor
 public class QuestionPrinterImpl implements QuestionPrinter {
 

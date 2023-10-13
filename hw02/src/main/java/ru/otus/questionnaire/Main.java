@@ -1,14 +1,17 @@
 package ru.otus.questionnaire;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.otus.questionnaire.service.QuestionService;
 
+@ComponentScan
+@Configuration
 public class Main {
 
-    public static final String SPRING_CONTEXT_XML = "/spring-context.xml";
-
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(SPRING_CONTEXT_XML);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
         QuestionService questionService = context.getBean(QuestionService.class);
         questionService.printAllQuestions();
         context.close();

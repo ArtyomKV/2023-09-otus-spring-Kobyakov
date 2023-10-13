@@ -1,6 +1,7 @@
 package ru.otus.questionnaire.dao;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import ru.otus.questionnaire.domain.AnswerOption;
 import ru.otus.questionnaire.domain.Question;
 import ru.otus.questionnaire.exception.QuestionsAccessException;
@@ -15,9 +16,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 @RequiredArgsConstructor
 public class QuestionDaoImpl implements QuestionDao {
     public static final String COMMA_DELIMITER = ",";
+
+    private static final String FILE_NAME = "questions.csv";
 
     public static final int ANSWER_COLUMN_NUMBER = 0;
 
@@ -25,7 +29,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
     public static final int CORRECT_FLAG_COLUMN_NUMBER = 2;
 
-    private final String fileName;
 
     @Override
     public List<Question> findAll() {
@@ -34,7 +37,7 @@ public class QuestionDaoImpl implements QuestionDao {
 
     private List<Question> getQuestionsAsResources() {
         ClassLoader classLoader = getClass().getClassLoader();
-        InputStream questionsInputStream = classLoader.getResourceAsStream(fileName);
+        InputStream questionsInputStream = classLoader.getResourceAsStream(FILE_NAME);
         return getQuestionsFromInputStream(questionsInputStream);
     }
 
