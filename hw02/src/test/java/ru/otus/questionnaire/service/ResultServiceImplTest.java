@@ -1,6 +1,5 @@
 package ru.otus.questionnaire.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +14,7 @@ import ru.otus.questionnaire.domain.Student;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.when;
@@ -65,7 +65,7 @@ class ResultServiceImplTest {
         doCallRealMethod().when(ioService).println(anyString());
         resultService.showResult(failedResult);
 
-        Assertions.assertEquals(expectedResultString, outContent.toString());
+        assertEquals(expectedResultString, outContent.toString());
     }
 
 
@@ -85,6 +85,6 @@ class ResultServiceImplTest {
         doCallRealMethod().when(ioService).println(anyString());
         resultService.showResult(passedResult);
 
-        Assertions.assertEquals(expectedResultString, outContent.toString());
+        assertEquals(expectedResultString, outContent.toString());
     }
 }
