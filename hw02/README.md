@@ -12,4 +12,4 @@
 
 ## Запуск приложения
 
-Запуск приложения осуществляется командой: _java -jar questionnaire-1.0-jar-with-dependencies.jar_
+Запуск приложения осуществляется командой: _java -jar hw02-1.0-jar-with-dependencies.jar_
