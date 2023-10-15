@@ -29,7 +29,7 @@ public class ResultServiceImpl implements ResultService {
         ioService.println(result.getStudent().getFullName());
         ioService.println(COUNT_OF_QUESTIONS + result.getCountOfQuestion());
         ioService.println(RIGHT_ANSWERS_STRING + result.getCountRightAnswers());
-        if(result.getCountRightAnswers() >= testConfig.getCountAnsweredQuestionsForPass()){
+        if (result.getCountRightAnswers() >= testConfig.getCountAnsweredQuestionsForPass()) {
             ioService.println(PASSED_TEST_STRING);
             return;
         }

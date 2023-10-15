@@ -9,6 +9,7 @@ import ru.otus.questionnaire.domain.Question;
 public class QuestionPrinterImpl implements QuestionPrinter {
 
     public static final String DASH = " - ";
+
     private final IOService ioService;
 
     @Override
