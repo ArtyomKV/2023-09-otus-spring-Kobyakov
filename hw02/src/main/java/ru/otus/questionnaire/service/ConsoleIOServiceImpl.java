@@ -18,4 +18,9 @@ public class ConsoleIOServiceImpl implements IOService {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
+
+    @Override
+    public void printEmptyLine() {
+        System.out.println();
+    }
 }

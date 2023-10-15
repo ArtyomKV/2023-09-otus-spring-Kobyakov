@@ -5,4 +5,6 @@ public interface IOService {
     void println(String stringForPrint);
 
     String getLineByQuestion(String lineForPrint);
+
+    void printEmptyLine();
 }

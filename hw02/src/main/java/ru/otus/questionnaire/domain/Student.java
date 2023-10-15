@@ -11,5 +11,9 @@ public class Student {
 
     private String surname;
 
+    public String getFullName() {
+        return String.format("%s %s", name, surname);
+    }
+
 }
 

@@ -18,7 +18,6 @@ public class TestRunnerServiceImpl implements TestRunnerService {
     @Override
     public void run() {
         Student student = studentService.getStudent();
-        System.out.println("Test for " + student);
         Result result = testService.doTest(student);
         resultService.showResult(result);
     }
