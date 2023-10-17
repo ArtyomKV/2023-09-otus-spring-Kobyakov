@@ -1,0 +1,4 @@
+test:
+  countAnsweredQuestionsForPass: 3
+  file:
+    name: questions.csv
