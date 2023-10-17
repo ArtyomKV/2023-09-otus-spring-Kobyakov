@@ -13,7 +13,7 @@ public class Question {
 
     private final String question;
 
-    private final List<AnswerOption> answerOptions;
+    private final List<Answer> answerOptions;
 }
 
 
