@@ -1,7 +1,7 @@
 name: build
 run-name: Pull-request by @${{ github.actor }}
 on:
-  pull-request:
+  pull_request:
     branches:
       - main
 
