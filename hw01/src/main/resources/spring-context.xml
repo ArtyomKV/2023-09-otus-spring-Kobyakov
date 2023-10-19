@@ -12,7 +12,7 @@
         <constructor-arg index="0" ref="ioService"/>
     </bean>
 
-    <bean id="questionService" class="ru.otus.questionnaire.service.QuestionServiceImpl">
+    <bean id="questionService" class="ru.otus.questionnaire.service.TestServiceImpl">
         <constructor-arg index="0" ref="questionDao"/>
         <constructor-arg index="1" ref="questionPrinter"/>
     </bean>
