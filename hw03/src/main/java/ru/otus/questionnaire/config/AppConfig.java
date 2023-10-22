@@ -1,25 +1,12 @@
 package ru.otus.questionnaire.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AppConfig implements FileNameProvider, TestConfig {
+@EnableConfigurationProperties(AppProps.class)
+@ConfigurationPropertiesScan
+public class AppConfig{
 
-    @Value("${test.file.name}")
-    private String testFileName;
-
-    @Value("${test.countAnsweredQuestionsForPass}")
-    private int countAnsweredQuestionsForPass;
-
-    @Override
-    public String getTestFileName() {
-        return testFileName;
-    }
-
-
-    @Override
-    public int getCountAnsweredQuestionsForPass() {
-        return countAnsweredQuestionsForPass;
-    }
 }

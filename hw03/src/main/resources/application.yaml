@@ -1,4 +1,6 @@
 test:
   countAnsweredQuestionsForPass: 3
-  file:
-    name: questions.csv
+  locale: en_US
+  fileNameByLocaleTag:
+    en-US: questions.csv
+    ru-RU: questions_ru.csv
