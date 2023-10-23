@@ -8,12 +8,12 @@ import ru.otus.questionnaire.domain.Student;
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
-    private final IOService ioService;
+    private final LocalizedIOService ioService;
 
     @Override
     public Student getStudent() {
-        String name = ioService.getLineByQuestion("What is your name?");
-        String surname = ioService.getLineByQuestion("What is your surname?");
+        String name = ioService.getLineByLocalizedQuestion("StudentService.input.first.name");
+        String surname = ioService.getLineByLocalizedQuestion("StudentService.input.surname.name");
         return new Student(name, surname);
     }
 }

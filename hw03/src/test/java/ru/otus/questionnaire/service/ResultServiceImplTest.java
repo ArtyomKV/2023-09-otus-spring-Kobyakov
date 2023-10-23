@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 class ResultServiceImplTest {
 
     @Mock
-    private ConsoleIOServiceImpl ioService;
+    private LocalizedIOServiceImpl ioService;
 
     @Mock
     private TestConfig testConfig;
