@@ -31,4 +31,9 @@ public class LocalizedIOServiceImpl implements LocalizedIOService {
         return ioService.getLineByQuestion(localizationMessageService.getLocalizedMessage(code));
     }
 
+    @Override
+    public void printLocalizedLine(String code, Object... args) {
+        ioService.println(localizationMessageService.getLocalizedMessage(code, args));
+    }
+
 }

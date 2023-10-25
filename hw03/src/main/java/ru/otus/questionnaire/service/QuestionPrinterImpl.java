@@ -10,7 +10,7 @@ public class QuestionPrinterImpl implements QuestionPrinter {
 
     public static final String DASH = " - ";
 
-    private final IOService ioService;
+    private final LocalizedIOService ioService;
 
     @Override
     public void printQuestion(Question question) {

@@ -14,13 +14,12 @@ import java.util.Scanner;
 @Service
 @RequiredArgsConstructor
 public class TestServiceImpl implements TestService {
-    public static final String CALL_TO_ACTION_STRING = " choose right answers for questions below: ".toUpperCase();
 
     private final QuestionDao questionDao;
 
     private final QuestionPrinter questionPrinter;
 
-    private final IOService ioService;
+    private final LocalizedIOService ioService;
 
     @Override
     public Result doTest(Student student) {
@@ -31,7 +30,7 @@ public class TestServiceImpl implements TestService {
 
     private void printCallToAction(Student student) {
         ioService.printEmptyLine();
-        ioService.println(student.getFullName().toUpperCase() + CALL_TO_ACTION_STRING);
+        ioService.printLocalizedLine("TestService.action.string", student.getFullName());
         ioService.printEmptyLine();
     }
 
