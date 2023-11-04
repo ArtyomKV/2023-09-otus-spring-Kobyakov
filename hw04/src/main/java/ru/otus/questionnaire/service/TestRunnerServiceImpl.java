@@ -1,14 +1,13 @@
 package ru.otus.questionnaire.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 import ru.otus.questionnaire.domain.Result;
 import ru.otus.questionnaire.domain.Student;
 
 @Service
 @RequiredArgsConstructor
-public class TestRunnerServiceImpl implements CommandLineRunner {
+public class TestRunnerServiceImpl implements TestRunnerService {
 
     private final StudentService studentService;
 
@@ -17,7 +16,7 @@ public class TestRunnerServiceImpl implements CommandLineRunner {
     private final ResultService resultService;
 
     @Override
-    public void run(String... args) {
+    public void run() {
         Student student = studentService.getStudent();
         Result result = testService.doTest(student);
         resultService.showResult(result);
