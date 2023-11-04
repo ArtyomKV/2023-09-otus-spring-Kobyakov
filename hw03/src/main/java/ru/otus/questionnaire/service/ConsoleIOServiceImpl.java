@@ -7,6 +7,12 @@ import java.util.Scanner;
 @Service
 public class ConsoleIOServiceImpl implements IOService {
 
+    private final Scanner scanner;
+
+    public ConsoleIOServiceImpl() {
+        this.scanner = new Scanner(System.in);
+    }
+
     @Override
     public void println(String stringForPrint) {
         System.out.println(stringForPrint);
@@ -15,7 +21,7 @@ public class ConsoleIOServiceImpl implements IOService {
     @Override
     public String getLineByQuestion(String lineForPrint) {
         System.out.println(lineForPrint);
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
