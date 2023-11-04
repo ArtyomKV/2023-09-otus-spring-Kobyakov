@@ -21,7 +21,6 @@ public class ConsoleIOServiceImpl implements IOService {
     @Override
     public String getLineByQuestion(String lineForPrint) {
         System.out.println(lineForPrint);
-//        Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
