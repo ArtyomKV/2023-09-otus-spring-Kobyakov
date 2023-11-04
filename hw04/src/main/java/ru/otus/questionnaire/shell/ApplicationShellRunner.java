@@ -6,30 +6,33 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
 import org.springframework.shell.standard.ShellOption;
+import ru.otus.questionnaire.service.LocalizationMessageService;
 import ru.otus.questionnaire.service.TestRunnerService;
 
 @ShellComponent
 @RequiredArgsConstructor
-public class ApplicationEventsCommands {
+public class ApplicationShellRunner {
 
     private final TestRunnerService testService;
+
+    private final LocalizationMessageService localizationMessageService;
 
     private boolean permission;
 
     @ShellMethod(value = "Personal data processing permission command", key = {"p", "permission"})
     public String personalDataProcessingPermission(@ShellOption(defaultValue = "true") boolean permission) {
         this.permission = permission;
-        return "Добро пожаловать!";
+        return localizationMessageService.getLocalizedMessage("ApplicationShellRunner.greetings");
     }
 
     @ShellMethod(value = "Run test command", key = {"r", "run"})
-    @ShellMethodAvailability(value = "isPublishEventCommandAvailable")
+    @ShellMethodAvailability(value = "wasPermissionGot")
     public void runTest() {
         testService.run();
     }
 
-    private Availability isPublishEventCommandAvailable() {
+    private Availability wasPermissionGot() {
         return permission ? Availability.available() : Availability
-                .unavailable("Сначала дайте разрешение на обработку персональных данных");
+                .unavailable(localizationMessageService.getLocalizedMessage("ApplicationShellRunner.reason"));
     }
 }
