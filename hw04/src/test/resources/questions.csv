@@ -1,0 +1,5 @@
+How many bits contains type long?;8,false|16,false|32,false|64,true
+Who works with byte code?;Abstract class,false|Interface,false|JVM,true
+Methods of Object class? Chose the wrong answer!;finalize(),false|clone(),false|equals(),false|hashCode(),false|run(),true
+OOP concepts? Chose wrong answer!;Polymorphism,false|Aggregation,true|Inheritance,false
+What is Collection?;Abstract class,false|Interface,true|Framework,false
