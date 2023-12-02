@@ -19,6 +19,7 @@ class JdbcAuthorRepositoryTest {
 
     private static final int EXPECTED_AUTHORS_COUNT = 3;
     private static final int EXISTING_AUTHOR_ID = 1;
+    private static final int NOT_EXISTING_AUTHOR_ID = 5;
 
     @Autowired
     private JdbcAuthorRepository jdbcAuthorRepository;
@@ -35,5 +36,12 @@ class JdbcAuthorRepositoryTest {
     void findById() {
         Optional<Author> optionalAuthor = jdbcAuthorRepository.findById(EXISTING_AUTHOR_ID);
         assertTrue(optionalAuthor.isPresent());
+    }
+
+    @DisplayName("возвращать пустой Optional по несуществующему id из БД")
+    @Test
+    void findEmptyByNotExistingId() {
+        Optional<Author> optionalAuthor = jdbcAuthorRepository.findById(NOT_EXISTING_AUTHOR_ID);
+        assertFalse(optionalAuthor.isPresent());
     }
 }
