@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import ru.otus.library.entity.Author;
 import ru.otus.library.entity.Book;
 import ru.otus.library.entity.Genre;
+import ru.otus.library.exceptions.EntityNotFoundException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -86,9 +87,20 @@ public class JdbcBookRepository implements BookRepository {
     }
 
     private Book update(Book book) {
-        //...
-        // Выбросить EntityNotFoundException если не обновлено ни одной записи в БД
-        return book;
+        int updatedCount = jdbcOperations.update("""
+                update books set title = :title, author_id = :author_id, genre_id = :genre_id
+                where id = :id
+                """, Map.of(
+                "title", book.getTitle(),
+                "author_id", book.getAuthor().getId(),
+                "genre_id", book.getGenre().getId(),
+                "id", book.getId()));
+
+        if (updatedCount == 0) {
+            throw new EntityNotFoundException("Can't update book with id = " + book.getId());
+        } else {
+            return book;
+        }
     }
 
     private static class BookRowMapper implements RowMapper<Book> {

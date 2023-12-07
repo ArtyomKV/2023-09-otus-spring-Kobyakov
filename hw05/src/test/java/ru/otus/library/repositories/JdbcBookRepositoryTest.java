@@ -8,12 +8,17 @@ import org.springframework.context.annotation.Import;
 import ru.otus.library.entity.Author;
 import ru.otus.library.entity.Book;
 import ru.otus.library.entity.Genre;
+import ru.otus.library.exceptions.EntityNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Repository для работы с книгами должно")
 @JdbcTest
@@ -43,11 +48,52 @@ class JdbcBookRepositoryTest {
     @DisplayName("сохранять новую книгу в БД")
     @Test
     void shouldSaveNewBook() {
-        Genre genre = new Genre(1, "Test_Genre_1");
-        Author author = new Author(1, "Test_Author_1");
+        Genre genre = new Genre(1L, "Test_Genre_1");
+        Author author = new Author(1L, "Test_Author_1");
         Book bookForSaving = new Book(0, "NewTitle", genre, author);
         Book savedBook = jdbcBookRepository.save(bookForSaving);
-        assertNotEquals(0, savedBook.getId());
+        assertThat(jdbcBookRepository.findById(savedBook.getId()))
+                .isPresent()
+                .get()
+                .isEqualTo(savedBook);
+    }
+
+    @DisplayName("сохранять измененную книгу в БД")
+    @Test
+    void shouldSaveUpdatedBook() {
+        Genre genre = new Genre(1L, "Test_Genre_1");
+        Author author = new Author(1L, "Test_Author_1");
+        Book bookForUpdating = new Book(1L, "UpdatedTitle", genre, author);
+
+        assertThat(jdbcBookRepository.findById(bookForUpdating.getId()))
+                .isPresent()
+                .get()
+                .isNotEqualTo(bookForUpdating);
+
+        Book updatedBook = jdbcBookRepository.save(bookForUpdating);
+
+        assertThat(updatedBook).isNotNull()
+                .matches(book -> book.getId() > 0)
+                .usingRecursiveComparison().ignoringExpectedNullFields().isEqualTo(bookForUpdating);
+
+        assertThat(jdbcBookRepository.findById(bookForUpdating.getId()))
+                .isPresent()
+                .get()
+                .isEqualTo(updatedBook);
+    }
+
+
+    @DisplayName("бросать исключение при попытке обновить несуществующую книгу в БД")
+    @Test
+    void shouldThrowExceptionByUpdatingNotExistedBook() {
+        Genre genre = new Genre(1L, "Test_Genre_1");
+        Author author = new Author(1L, "Test_Author_1");
+        Book bookForUpdating = new Book(4L, "UpdatedTitle", genre, author);
+
+        Exception exception =
+                assertThrows(EntityNotFoundException.class, () -> jdbcBookRepository.save(bookForUpdating));
+
+        assertThat(exception.getMessage()).isEqualTo("Can't update book with id = 4");
     }
 
     @DisplayName("удалять заданную книгу по её id")
