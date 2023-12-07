@@ -9,7 +9,6 @@ import ru.otus.library.entity.Genre;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
