@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.otus.library.entity.Author;
+import ru.otus.library.exceptions.EntityNotFoundException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ import static ru.otus.library.utils.Constants.ID;
 @RequiredArgsConstructor
 public class JdbcAuthorRepository implements AuthorRepository {
 
+    public static final int FIRST_ELEMENT = 0;
     private final NamedParameterJdbcOperations jdbcOperations;
 
     @Override
@@ -31,14 +33,12 @@ public class JdbcAuthorRepository implements AuthorRepository {
     @Override
     public Optional<Author> findById(long id) {
         Map<String, Object> params = Collections.singletonMap(ID, id);
-        Author author;
-        try {
-            author = jdbcOperations.queryForObject(
+        List<Author> author = jdbcOperations.query(
                     "select id, full_name from authors where id = :id", params, new AuthorRowMapper());
-        } catch (DataAccessException e) {
+        if(author.isEmpty()){
             return Optional.empty();
         }
-        return Optional.ofNullable(author);
+        return Optional.ofNullable(author.get(FIRST_ELEMENT));
     }
 
     private static class AuthorRowMapper implements RowMapper<Author> {
