@@ -1,12 +1,10 @@
 package ru.otus.library.repositories;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.otus.library.entity.Author;
-import ru.otus.library.exceptions.EntityNotFoundException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +21,7 @@ import static ru.otus.library.utils.Constants.ID;
 public class JdbcAuthorRepository implements AuthorRepository {
 
     public static final int FIRST_ELEMENT = 0;
+
     private final NamedParameterJdbcOperations jdbcOperations;
 
     @Override
@@ -35,7 +34,7 @@ public class JdbcAuthorRepository implements AuthorRepository {
         Map<String, Object> params = Collections.singletonMap(ID, id);
         List<Author> author = jdbcOperations.query(
                     "select id, full_name from authors where id = :id", params, new AuthorRowMapper());
-        if(author.isEmpty()){
+        if (author.isEmpty()) {
             return Optional.empty();
         }
         return Optional.ofNullable(author.get(FIRST_ELEMENT));
