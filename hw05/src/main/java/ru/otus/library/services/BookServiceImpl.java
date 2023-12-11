@@ -33,7 +33,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book insert(String title, long authorId, long genreId) {
-        return save(0, title, authorId, genreId);
+        return save(null, title, authorId, genreId);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class BookServiceImpl implements BookService {
         bookRepository.deleteById(id);
     }
 
-    private Book save(long id, String title, long authorId, long genreId) {
+    private Book save(Long id, String title, long authorId, long genreId) {
         var author = authorRepository.findById(authorId)
                 .orElseThrow(() -> new EntityNotFoundException("Author with id %d not found".formatted(authorId)));
         var genre = genreRepository.findById(genreId)

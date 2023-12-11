@@ -50,7 +50,7 @@ class JdbcBookRepositoryTest {
     void shouldSaveNewBook() {
         Genre genre = new Genre(1L, "Test_Genre_1");
         Author author = new Author(1L, "Test_Author_1");
-        Book bookForSaving = new Book(0, "NewTitle", genre, author);
+        Book bookForSaving = new Book(null, "NewTitle", genre, author);
         Book savedBook = jdbcBookRepository.save(bookForSaving);
         assertThat(jdbcBookRepository.findById(savedBook.getId()))
                 .isPresent()
